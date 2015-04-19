@@ -71,12 +71,16 @@ public class MainActivityFragment extends Fragment {
          * 獲取Style中的值
          */
         int[] attribute = new int[] { R.attr.colorPrimary, R.attr.attr1 };
-        TypedArray array = getActivity().getTheme().obtainStyledAttributes(R.style.AppTheme, attribute);
+        TypedArray array = getActivity().getTheme().obtainStyledAttributes(R.style.AppTheme, R.styleable.MyStyle);
 
-        int colorPrimary = array.getColor(0, -1);
-        String attr = array.getString(1);
+        //int colorPrimary = array.getColor(0, -1);
+        /**
+         * 可以使用用0代表獲取attr中的第一個屬性,也可以直接寫屬性的名字R.styleable.MyStyle_attr1
+         */
+        String attr = array.getString(0);
+        attr = array.getString(R.styleable.MyStyle_attr1);
 
-        mTxtValue.append(",\n\ncolorPrimary=" + colorPrimary +"  ,attr="+attr);
+        mTxtValue.append(",\n\ncolorPrimary=" + "colorPrimary" +"  ,attr="+attr);
 
         array.recycle();
     }
