@@ -68,20 +68,34 @@ public class MainActivityFragment extends Fragment {
 
 
         /**
-         * 獲取Style中的值
+         * 獲取Style中attr的值
+         * 方法1:
+         *
+         * Return a TypedArray holding the values defined by the style
+         * resource resid which are listed in attrs.
+         * 返回AppTheme中設置的MyStyle中屬性列表
          */
-        int[] attribute = new int[] { R.attr.colorPrimary, R.attr.attr1 };
-        TypedArray array = getActivity().getTheme().obtainStyledAttributes(R.style.AppTheme, R.styleable.MyStyle);
+        //int[] attribute = new int[] { R.attr.colorPrimary, R.attr.attr1 };
+        TypedArray typedArray = getActivity().getTheme().obtainStyledAttributes(R.style.AppTheme, R.styleable.MyStyle);
 
         //int colorPrimary = array.getColor(0, -1);
         /**
-         * 可以使用用0代表獲取attr中的第一個屬性,也可以直接寫屬性的名字R.styleable.MyStyle_attr1
+         * 可以使用getString(0),用0代表獲取attr中的第一個屬性,
+         * 也可以直接寫屬性的名字R.styleable.MyStyle_attr1
          */
-        String attr = array.getString(0);
-        attr = array.getString(R.styleable.MyStyle_attr1);
+        //String attr = typedArrayAttr1.getString(0);
+        String attr = typedArray.getString(R.styleable.MyStyle_attr1);
+        typedArray.recycle();
 
-        mTxtValue.append(",\n\ncolorPrimary=" + "colorPrimary" +"  ,attr="+attr);
+        /**
+         * 獲取Style中attr的值
+         * 方法2:
+         */
+        TypedValue typedArrayAttr2 = new TypedValue();
+        getActivity().getTheme().resolveAttribute(R.attr.attr1, typedArrayAttr2, true);
 
-        array.recycle();
+        mTxtValue.append(",\n"+ "attr= " + attr);
+        mTxtValue.append(",\n" + "attr= " + typedArrayAttr2.string);
+
     }
 }
